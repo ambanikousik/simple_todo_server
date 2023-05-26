@@ -41,8 +41,20 @@ INSTALLED_APPS = [
     "authentication",
     # third-party apps
     "rest_framework",
+    "rest_framework.authtoken",
+    "rest_framework_simplejwt",
 ]
 
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+}
+
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
 
 AUTH_USER_MODEL = "authentication.User"
 
@@ -85,9 +97,9 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "railway",
         "USER": "postgres",
-        "PASSWORD": "lHUyynJoStC8aQcVU223",
-        "HOST": "containers-us-west-128.railway.app",
-        "PORT": "7522",
+        "PASSWORD": "cIdluNbqrbHTbL1hbKMn",
+        "HOST": "containers-us-west-75.railway.app",
+        "PORT": "8075",
     }
 }
 
