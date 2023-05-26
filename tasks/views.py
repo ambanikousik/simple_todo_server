@@ -15,7 +15,8 @@ class TaskListCreateView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = TaskSerializer(data=request.data)
+        data = request.data.copy()
+        serializer = TaskSerializer(data=data)
         if serializer.is_valid():
             serializer.save(author=request.user)
             return Response(serializer.data, status=201)

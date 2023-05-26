@@ -13,7 +13,11 @@ class RegisterView(APIView):
             user = serializer.save()
             refresh = RefreshToken.for_user(user)
             token = str(refresh.access_token)
-            return Response({"token": token}, status=status.HTTP_201_CREATED)
+            user_serializer = UserSerializer(user)
+            return Response(
+                {"user": user_serializer.data},
+                status=status.HTTP_201_CREATED,
+            )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -30,7 +34,8 @@ class LoginView(APIView):
                 login(request, user)
                 refresh = RefreshToken.for_user(user)
                 token = str(refresh.access_token)
-                return Response({"token": token})
+                user_serializer = UserSerializer(user)
+                return Response({"user": user_serializer.data})
             return Response(
                 {"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED
             )
